@@ -49,16 +49,7 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-mauron85-background-geolocation": {
-        "GOOGLE_PLAY_SERVICES_VERSION": "+",
-        "ICON": "@mipmap/icon",
-        "SMALL_ICON": "@mipmap/icon",
-        "ACCOUNT_NAME": "@string/app_name",
-        "ACCOUNT_LABEL": "@string/app_name",
-        "ACCOUNT_TYPE": "$PACKAGE_NAME.account",
-        "CONTENT_AUTHORITY": "$PACKAGE_NAME"
-      }
+      "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
       "android"
