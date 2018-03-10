@@ -148,9 +148,8 @@ export class ListTestPage {
         startData.point.x = e.offsetX;
         startData.point.y = e.offsetY;
         this.calculateAlphaIndex(startData.point);
-      }else{
-        this.draggingContent(e);
       }
+      this.draggingContent(e);
     });
     zr.on('mouseup', e => {
       startData.isIndexDown = false;
