@@ -63,6 +63,11 @@ export class ListTestPage {
     this.calculateAlphaIndex({x:0,y:0});
   }
 
+  drawContact(zr){
+    let y = this.vw(2);
+
+  }
+
   calculateAlphaIndex(p:{x:number,y:number}){
     const itemHeight = this.vw(5);
     const index = Math.floor(p.y / itemHeight);
