@@ -9,6 +9,8 @@ import * as zrender from 'zrender';
 })
 export class ListTestPage {
   indexes:Array<any>;
+  indexGraphics:Array<any>;
+  currentIndexGraphic:any;
   clientItemList = [];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.mockData();
@@ -39,7 +41,7 @@ export class ListTestPage {
 
   drawIndex(zr){
     let cy = this.vw(3);
-    let alphaGraphics = this.indexes.map((index) => {
+    this.indexGraphics = this.indexes.map((index) => {
       const circle = new zrender.Circle({
         shape: {
           cx: this.vw(97),
@@ -58,15 +60,53 @@ export class ListTestPage {
 
       return circle;
     });
+    this.calculateAlphaIndex({x:0,y:0});
+  }
+
+  calculateAlphaIndex(p:{x:number,y:number}){
+    const itemHeight = this.vw(5);
+    const index = Math.floor(p.y / itemHeight);
+    if(index < 0 || index > this.indexGraphics.length - 1)return;
+    if(this.currentIndexGraphic){
+      this.currentIndexGraphic.attr('style', {
+        fill:'none',
+        textFill:'#000'
+      });
+    }
+    this.currentIndexGraphic = this.indexGraphics[index];
+    this.currentIndexGraphic.attr('style', {
+      fill:'#f00',
+      textFill:'#fff'
+    });
+
   }
 
   draw(){
     const zr = zrender.init(document.querySelector('.render-wrapper'));
+    const startData = {
+      isIndexDown:false,
+      point:{
+        x:0,
+        y:0
+      }
+    };
     zr.on('mousedown',e => {
-      console.log('mousedown');
+      if(e.offsetX > this.vw(95)){
+        startData.isIndexDown = true;
+        startData.point.x = e.offsetX;
+        startData.point.y = e.offsetY;
+        this.calculateAlphaIndex(startData.point);
+      }
     });
-    zr.on('touchstart',e => {
-      console.log('touchstart');
+    zr.on('mousemove',e => {
+      if(startData.isIndexDown){
+        startData.point.x = e.offsetX;
+        startData.point.y = e.offsetY;
+        this.calculateAlphaIndex(startData.point);
+      }
+    });
+    zr.on('mouseup',e => {
+      startData.isIndexDown = false;
     });
     this.drawIndex(zr);
   }
