@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import * as zrender from 'zrender';
+import * as Hammer from 'hammerjs';
 
 @IonicPage()
 @Component({
@@ -21,7 +22,7 @@ export class ListTestPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.mockData();
     setTimeout(() => {
-      this.draw();
+      this.initZrender();
     }, 400)
   }
 
@@ -143,7 +144,7 @@ export class ListTestPage {
     });
   }
 
-  draw() {
+  initZrender() {
     const zr = zrender.init(document.querySelector('.render-wrapper'));
     const startData = {
       isIndexDown: false,
@@ -178,9 +179,17 @@ export class ListTestPage {
 
     setTimeout(() => {
       const canvas = document.querySelector('.render-wrapper canvas');
-      canvas.addEventListener('swipe', e => {
-        console.log('swipe');
+
+      const manager = new Hammer.Manager(canvas);
+      manager.add(new Hammer.Swipe());
+      manager.add(new Hammer.Tap());
+      manager.on('swipe', function(e) {
+        console.log(e.deltaY);
       });
+      manager.on('tap', function(e) {
+        console.log(e,'tap');
+      });
+
     },300);
 
     this.drawIndex(zr);
