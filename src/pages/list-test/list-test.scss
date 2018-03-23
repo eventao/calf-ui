@@ -1,6 +1,26 @@
 page-list-test {
-  .render-wrapper{
-    width:100%;
-    height:100%;
-  }
+    .clusterize-scroll{
+        width:100%;
+        height:100%;
+
+        .row{
+            width:100%;
+            height:10vw;
+            display:flex;
+            align-items: center;
+            border-bottom:1px solid #ccc;
+
+            .column{
+                .avatar{
+                    display:block;
+                    width:3vw;
+                    height:4vw;
+
+                }
+            }
+        }
+
+
+
+    }
 }
